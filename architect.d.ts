@@ -4,7 +4,7 @@ declare module "AR" {
   type InterruptionCallback = (suggestedInterval?: number) => void;
   type ErrorCallback = (code: number, errorObject: Error) => void;
 
-  class CONST {
+  const CONST : {
     ANIMATION_GROUP_TYPE: { PARALLEL: 'parallel', SEQUENTIAL: 'sequential' };
     CAMERA_FOCUS_MODE: { ONCE: string, CONTINUOUS: string, OFF: string };
     CAMERA_POSITION: { FRONT: string, BACK: string };
