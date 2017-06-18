@@ -12,7 +12,7 @@ Got fed up of having no code completion, decided to fix it!
 
 ### Installation 
 
-`npm install --save-dev webdevbren/architect_dts`
+`npm install --save-dev architect_dts`
 
 ### Usage
 

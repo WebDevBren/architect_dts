@@ -1,8 +1,8 @@
 {
   "name": "architect_dts",
-  "version": "1.0.1",
-  "description": "Typescript Typings for Wikitude AR World",
-  "typings": "./architect.d.ts",
+  "version": "1.0.2",
+  "description": "Typescript Typings for Wikitude AR World (or ARchitect World)",
+  "types": "./architect.d.ts",
   "repository": {
     "type": "git",
     "url": "https://github.com/WebDevBren/architect_dts"
