@@ -2,10 +2,7 @@
   "name": "architect_dts",
   "version": "1.0.1",
   "description": "Typescript Typings for Wikitude AR World",
-  "main": "null",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
+  "typings": "./architect.d.ts",
   "repository": {
     "type": "git",
     "url": "https://github.com/WebDevBren/architect_dts"
