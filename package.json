@@ -1,0 +1,22 @@
+{
+  "name": "architect_dts",
+  "version": "1.0.0",
+  "description": "Typescript Typings for Wikitude AR World",
+  "main": "null",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "tbc"
+  },
+  "keywords": [
+    "wikitude",
+    "typescript",
+    "tsc",
+    "ar",
+    "typings"
+  ],
+  "author": "Brendan Ingham <brendan@the-tool-shed.uk>",
+  "license": "MIT"
+}
