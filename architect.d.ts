@@ -3,6 +3,7 @@ declare module "AR" {
   type RecognizedCallback = (recognized: boolean, recognitionData: { targetInfo?: any, metadata?: any }) => void;
   type InterruptionCallback = (suggestedInterval?: number) => void;
   type ErrorCallback = (code: number, errorObject: Error) => void;
+  type callback<T = any> = (...args: T[]) => void;
 
   const CONST : {
     ANIMATION_GROUP_TYPE: { PARALLEL: 'parallel', SEQUENTIAL: 'sequential' };
@@ -43,11 +44,11 @@ declare module "AR" {
     /**
      * The trigger is executed when the user enters the ActionArea.
      */
-    onEnter?: () => void;
+    onEnter?: callback;
     /**
      * The trigger is executed when the user leaves the ActionArea.
      */
-    onExit?: () => void;
+    onExit?: callback;
   }
 
   /**
@@ -80,7 +81,7 @@ declare module "AR" {
     public scale: Vector3;
     public translate: Vector3;
 
-    onClick?: (arObject: ARObject) => void;
+    onClick?: callback<ARObject>;
     onDragBegan?: (xNormalized: number, yNormalized: number, xIntersection: number, yIntersection: number) => void;
     onDragChanged?: (xNormalized: number, yNormalized: number, xIntersection: number, yIntersection: number) => void;
     onDragEnded?: (xNormalized: number, yNormalized: number, xIntersection: number, yIntersection: number) => void;
@@ -607,7 +608,7 @@ declare module "AR" {
     )
   }
 
-  type callback = (...arg: any[]) => void;
+  
 
   class Sound extends ARchitectObject {
     state: number;
@@ -674,15 +675,75 @@ declare module "AR" {
     onLoaded?: callback; 
   }
 
+  /**
+   * An AR.Occluder is an object that can be used to occlude other geometry during the rendering process. 
+   * Despite it being a specialization of AR.Drawable, it has itself no visual representation. 
+   * Its sole interaction with the scene is writing to the depth buffer and thus preventing pixels that lie behind it, with respect to the point of observation, from being rendered.
+   * The occluder object is intended to represent real-life objects within the scene such that augmentations may pass being them instead of being rendered on top.
+   */
+  class Occluder extends Drawable {
+    public uri: string;
+
+    public onError?: callback<Error>; 
+    public onInitialized?: callback;
+    public onLoaded?: callback;
+    constructor(url: string, options?: DrawableOptions);
+
+    public isInitialized(): boolean;
+
+    public isLoaded() : boolean;
+  }
+
+  /**
+   * An AR.OccluderBox is, exactly like the AR.Occluder, an object that can be used to occlude other geometry during the rendering process with all the same rendering characteristics. 
+   * It differs from it in that it does not accept arbitrary geometry as an input though a wt3 file , but represents a predefined volume which can be parameterized. 
+   * Befitting its name, this predefined volume is a box.
+   * The intention of this object and related volume occluders is to allow fast prototyping as well as easy occlusion of models which fit the predefined volumes closely.
+   */
+  class OccluderBox extends Drawable {
+    public depth: number;
+    public height: number;
+    public width: number;
+    constructor(width: number, height: number, depth: number, options?: DrawableOptions);
+  }
+
+  /**
+   * An AR.OccluderCylinder is, exactly like the AR.Occluder, an object that can be used to occlude other geometry during the rendering process with all the same rendering characteristics. 
+   * It differs from it in that it does not accept arbitrary geometry as an input though a wt3 file , but represents a predefined volume which can be parameterized. 
+   * Befitting its name, this predefined volume is a cylinder. 
+   * The intention of this object and related volume occluders is to allow fast prototyping as well as easy occlusion of models which fit the predefined volumes closely.
+   */
+  class OccluderCylinder extends Drawable {
+    public height: number;
+    public radius: number;
+    public slices: number;
+    constructor(radius: number, slices: number, height: number, options: DrawableOptions);
+  }
+
+  /**
+   * An AR.OccluderSphere is, exactly like the AR.Occluder, an object that can be used to occlude other geometry during the rendering process with all the same rendering characteristics. 
+   * It differs from it in that it does not accept arbitrary geometry as an input though a wt3 file , but represents a predefined volume which can be parameterized. 
+   * Befitting its name, this predefined volume is a sphere. 
+   * The intention of this object and related volume occluders is to allow fast prototyping as well as easy occlusion of models which fit the predefined volumes closely.
+   */
+  class OccluderSphere extends Drawable {
+    public radius: number;
+    public slices: number;
+    public stacks: number;
+    constructor(radius: number, slices: number, stacks: number, options: DrawableOptions);
+  }
+
   /** Please Don't use, does not actually exist in the Wikitude Architect, its just an easier way to describe it... */
   class Vector3 {
-    x: number;
-    y: number;
-    z: number;
+    x?: number;
+    y?: number;
+    z?: number;
     global?: Vector3;
   }
 
   class _EVENT_HANDLERS {
+    onError?: (error: Error) => void;
+    onLoaded?: (...any) => void;
     onClick?: (arObject: ARObject) => void;
     onDragBegan?: (xNormalized: number, yNormalized: number, xIntersection: number, yIntersection: number) => void;
     onDragChanged?: (xNormalized: number, yNormalized: number, xIntersection: number, yIntersection: number) => void;
@@ -697,4 +758,8 @@ declare module "AR" {
     onScaleChanged?: (scale: number) => void;
     onscaleEnded?: (scale: number) => void;
   }
+
+
+
+
 }
